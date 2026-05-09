@@ -8,6 +8,7 @@ $ErrorActionPreference = "Stop"
 $ProjectRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 $OutputPath = Join-Path $ProjectRoot $OutputDir
 $TempPath = Join-Path $OutputPath ".latex"
+$SourceRoot = Join-Path $ProjectRoot "src"
 
 if ($Source) {
   $SourcePath = Join-Path $ProjectRoot $Source
@@ -30,6 +31,13 @@ if (-not $xelatex) {
 
 Push-Location $ProjectRoot
 try {
+  # Clean accidental in-place LaTeX artifacts from source files.
+  if (Test-Path -LiteralPath $SourceRoot) {
+    Get-ChildItem -Path $SourceRoot -File -Include *.aux,*.log,*.toc,*.out,*.synctex.gz | ForEach-Object {
+      Remove-Item -LiteralPath $_.FullName -Force -ErrorAction SilentlyContinue
+    }
+  }
+
   New-Item -ItemType Directory -Force -Path $OutputPath | Out-Null
 
   foreach ($SourcePath in $SourcePaths) {
