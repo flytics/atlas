@@ -1,0 +1,155 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{xcolor}
+
+\definecolor{flyticsblue}{RGB}{0,51,102}
+
+\title{\textbf{Project Workplan\\AI-Enhanced Client Services Platform}}
+\author{Prepared for Flytics Client Services Business Unit}
+\date{May 2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{Executive Summary}
+
+This workplan defines a phased delivery path for the Flytics Client Services Platform. The plan prioritizes a reliable core marketplace and operations engine before expanding into AI-assisted workflows, automated analytics, subscriptions, and enterprise dashboards. Each phase includes implementation outputs and acceptance gates so product and engineering teams can use the plan for sprint planning and release readiness.
+
+\section{Delivery Strategy}
+
+\begin{itemize}[leftmargin=*]
+    \item Phase 1 establishes the production foundation: identity, client intake, pilot onboarding, core engine, operations console, storage, notifications, and basic billing events.
+    \item Phase 2 introduces AI as reviewable decision support for intake, pricing, matching, risk scoring, and report drafting.
+    \item Phase 3 expands high-margin analytics, recurring monitoring, dashboards, and scale hardening.
+    \item Every phase must preserve auditability, operations override, role-based access control, and explicit domain events.
+\end{itemize}
+
+\section{Phase 1: Digital Foundation (Months 1--4)}
+
+\textit{Goal: launch the minimum viable marketplace workflow and core engine needed to operate real client missions under staff supervision.}
+
+\begin{longtable}{p{0.10\textwidth}p{0.48\textwidth}p{0.30\textwidth}}
+\toprule
+\textbf{Ref} & \textbf{Workstream} & \textbf{Primary deliverable} \\
+\midrule
+1.1 & Product discovery, service package definition, role model, event model, and architecture baseline. & Approved product and architecture baseline \\
+1.2 & Identity, role-based access control, client account model, pilot account model, and administration controls. & Secure access foundation \\
+1.3 & Client portal for guided intake, free-text request, site details, schedule window, deliverables, file attachments, and status view. & Client request MVP \\
+1.4 & Core engine for request, mission, quote, bid, assignment, status transition, audit event, and notification trigger records. & Core engine v1 \\
+1.5 & Pilot onboarding for credentials, insurance, equipment, regions, availability, bid submission, and assignment acceptance. & Pilot portal MVP \\
+1.6 & Operations console for request review, eligibility exceptions, bid comparison, assignment approval, mission monitoring, and support notes. & Operations console MVP \\
+1.7 & Secure object storage, file metadata, upload workflow, deliverable publishing, and signed client access. & File and deliverable service \\
+1.8 & Billing event foundation for quote approval, invoice-ready events, payment status, platform fees, pilot payout records, and finance export. & Billing event ledger v1 \\
+\bottomrule
+\end{longtable}
+
+\subsection*{Phase 1 Acceptance Gate}
+
+\begin{itemize}[leftmargin=*]
+    \item A client can submit a request, operations can qualify it, eligible pilots can bid, operations can assign a pilot, mission status can be tracked, files can be uploaded, deliverables can be published, and billing events can be generated.
+    \item All material workflow changes produce audit events.
+    \item Mandatory eligibility checks cannot be bypassed by ranking, recommendation, or user interface behavior.
+\end{itemize}
+
+\section{Phase 2: AI Operations Layer (Months 5--8)}
+
+\textit{Goal: improve speed, consistency, and decision quality with AI services that remain observable, testable, and overridable.}
+
+\begin{longtable}{p{0.10\textwidth}p{0.48\textwidth}p{0.30\textwidth}}
+\toprule
+\textbf{Ref} & \textbf{Workstream} & \textbf{Primary deliverable} \\
+\midrule
+2.1 & Smart intake service that parses free-text requests into structured mission fields with confidence, missing fields, and suggested clarifying questions. & Intake AI service \\
+2.2 & Service recommendation engine for packages, deliverables, add-ons, and recurring monitoring candidates. & Recommendation service \\
+2.3 & Pricing guidance service that produces price corridors and rationale from package, complexity, urgency, history, region, and configured margin rules. & Pricing guidance API \\
+2.4 & Pilot ranking model that scores only eligible pilots using proximity, equipment, availability, cost, performance, and service history. & Pilot ranking service \\
+2.5 & Risk and feasibility scorecard using weather, airspace, site, travel, schedule, compliance, and operational constraints. & Risk scorecard \\
+2.6 & Staff review UI for AI suggestions, confidence, source inputs, model versions, accepted suggestions, rejected suggestions, and override reasons. & AI governance console \\
+2.7 & Notification and SLA improvements for bid windows, pending approvals, stalled analytics, missed deadlines, and support escalations. & SLA automation \\
+\bottomrule
+\end{longtable}
+
+\subsection*{Phase 2 Acceptance Gate}
+
+\begin{itemize}[leftmargin=*]
+    \item AI services improve staff workflow without being required for hard eligibility, compliance, billing, or mission state transitions.
+    \item Every AI recommendation used in a business decision is logged with inputs, output, timestamp, and user action.
+    \item Operations users can accept, reject, or override recommendations from the UI.
+\end{itemize}
+
+\section{Phase 3: Advanced Analytics and Scaling (Months 9--12)}
+
+\textit{Goal: expand revenue through analytics products, subscriptions, enterprise reporting, and production scale hardening.}
+
+\begin{longtable}{p{0.10\textwidth}p{0.48\textwidth}p{0.30\textwidth}}
+\toprule
+\textbf{Ref} & \textbf{Workstream} & \textbf{Primary deliverable} \\
+\midrule
+3.1 & Analytics pipeline for asynchronous image processing, model outputs, review queues, versioned results, and quality flags. & Analytics pipeline v1 \\
+3.2 & Standard analytics packages for anomaly detection, object counts, progress comparison, mapping outputs, and change summaries. & Analytics product catalog \\
+3.3 & AI-assisted report generation with templates, limitations, review workflow, attachments, and client-ready PDF export. & Report generation service \\
+3.4 & Recurring monitoring module for schedule templates, subscription billing events, renewal status, account history, and service-level tracking. & Subscription module \\
+3.5 & Enterprise dashboards for mission history, trend views, analytics outputs, subscription performance, deliverables, and account-level reporting. & Enterprise dashboard \\
+3.6 & Production hardening for load, large-file handling, provider failure recovery, cost monitoring, observability, backup, and incident response. & Production readiness release \\
+\bottomrule
+\end{longtable}
+
+\subsection*{Phase 3 Acceptance Gate}
+
+\begin{itemize}[leftmargin=*]
+    \item Analytics products can be sold, delivered, reviewed, and measured by package.
+    \item Recurring monitoring can generate scheduled missions and billing events.
+    \item Production readiness testing validates workflow reliability, provider failure recovery, and operational monitoring.
+\end{itemize}
+
+\section{Engineering Ownership}
+
+\begin{longtable}{>{\bfseries}p{0.25\textwidth}p{0.62\textwidth}}
+\toprule
+Team or role & Ownership \\
+\midrule
+Product management & Service packages, priorities, acceptance criteria, client and pilot workflows, and release scope. \\
+Architecture lead & Domain model, core engine boundaries, integration patterns, event model, security baseline, and technical decision records. \\
+Frontend engineering & Client portal, pilot portal, operations console, finance views, administration views, and design system. \\
+Backend engineering & Core engine, APIs, state transitions, rules, billing events, integrations, notifications, audit, and observability. \\
+AI and data engineering & AI services, analytics pipeline, model evaluation, prompt and model versioning, output review workflow, and data quality. \\
+DevOps and security & Cloud infrastructure, CI/CD, secrets, storage, monitoring, backups, access policies, and incident response. \\
+Operations subject matter expert & Pilot workflows, compliance rules, mission lifecycle, service quality, and support escalation design. \\
+\bottomrule
+\end{longtable}
+
+\section{Recommended Technical Baseline}
+
+\begin{itemize}[leftmargin=*]
+    \item Frontend: React or equivalent component-based web framework for client, pilot, and operations experiences.
+    \item Backend: Python/FastAPI, TypeScript/NestJS, or equivalent service framework with explicit domain modules.
+    \item Data: PostgreSQL for transactional records, object storage for imagery and deliverables, and a queue for asynchronous jobs.
+    \item AI and analytics: provider-isolated AI adapters, model output versioning, asynchronous processing, and review queues.
+    \item Integrations: identity provider, payment processor, email/SMS provider, maps/geocoding, weather, airspace, accounting, and CRM through adapter interfaces.
+    \item Quality: automated tests for core rules, API contracts, permissions, state transitions, billing events, and critical UI flows.
+\end{itemize}
+
+\section{Key Risks and Mitigation}
+
+\begin{longtable}{>{\bfseries}p{0.25\textwidth}p{0.30\textwidth}p{0.33\textwidth}}
+\toprule
+Risk & Impact & Mitigation \\
+\midrule
+Pilot supply gaps & Slow assignment and poor client experience & Region launch criteria, onboarding targets, supply alerts, and backup manual assignment. \\
+Compliance failure & Legal, safety, and reputational exposure & Credential checks, expiration alerts, airspace review, insurance tracking, and audit logs. \\
+AI over-reliance & Incorrect pricing, matching, or reports & Hard rules outside AI, staff review, confidence display, override records, and evaluation tests. \\
+Large-file processing cost & Margin pressure and slow deliverables & Storage lifecycle rules, asynchronous jobs, usage metering, and package-level pricing. \\
+Integration instability & Failed payments, notifications, or data processing & Adapter pattern, retries, idempotency, provider status alerts, and manual recovery tools. \\
+Scope expansion & Schedule and quality risk & Phase gates, backlog triage, and release acceptance criteria. \\
+\bottomrule
+\end{longtable}
+
+\end{document}

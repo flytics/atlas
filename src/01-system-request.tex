@@ -1,0 +1,180 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{xcolor}
+
+\definecolor{flyticsblue}{RGB}{0,51,102}
+
+\title{\textbf{System Request\\AI-Enhanced Client Services Platform}}
+\author{Prepared for Flytics Client Services Business Unit}
+\date{May 2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{Document Purpose}
+
+This system request defines the approved business need and production scope for the Flytics AI-Enhanced Client Services Platform. It is intended to guide product, architecture, engineering, data, operations, finance, and support teams as they begin system design and development.
+
+\section{Executive Summary}
+
+Flytics requires a secure web-based platform that enables clients to request drone flight services and related data analysis without owning drone assets. The platform will qualify service requests, route work to contracted pilots, manage bidding and assignment, orchestrate analytics delivery, and provide client-ready outputs through a secure portal.
+
+The platform will include an AI Services Layer for smart intake, service recommendations, pricing guidance, pilot ranking, risk scoring, analytics assistance, and report drafting. AI must support the operating model without replacing deterministic business rules, compliance checks, audit logging, or human override authority.
+
+\section{Business Context}
+
+\begin{longtable}{>{\bfseries}p{0.30\textwidth}p{0.60\textwidth}}
+\toprule
+Project sponsor & Mahros Mohamed \\
+Business unit & Client Services \\
+Primary users & External clients, contracted pilots, internal operations, finance, support, and administration teams \\
+Primary channel & Company website, client portal, pilot portal, and internal operations console \\
+Core outcome & Scalable marketplace and operations platform for drone flight services, analytics, reporting, and recurring monitoring \\
+Original conservative value & \$357,500 from new pilot contracts and drone leases plus \$565,000 from drone flight services and data analysis \\
+\bottomrule
+\end{longtable}
+
+\section{Business Need}
+
+The Client Services Business Unit serves clients who need drone missions, imagery, inspection support, mapping, monitoring, and actionable analysis without purchasing drones or managing pilots. Flytics needs a platform that can receive demand, structure requirements, determine feasibility, distribute opportunities to qualified pilots, manage client and pilot commitments, process captured data, and deliver outputs securely.
+
+Without this system, Flytics faces slow manual triage, inconsistent scoping, weak pricing discipline, limited auditability, operational bottlenecks during pilot assignment, and reduced ability to scale analytics-driven revenue.
+
+\section{Proposed Solution}
+
+Build an AI-enhanced Client Services Platform with the following integrated capability areas:
+
+\begin{enumerate}[leftmargin=*]
+    \item Client request intake through a guided web flow, secure account portal, and optional free-text request description.
+    \item Pilot marketplace workflow for onboarding, credential management, availability, bid distribution, bid comparison, assignment, and payout visibility.
+    \item Core engine for mission lifecycle, eligibility, compliance, pricing, matching, workflow state, billing events, audit history, and integration contracts.
+    \item AI Services Layer for request parsing, service recommendation, pricing guidance, pilot ranking, risk checks, image analysis support, and report generation.
+    \item Data processing workflow for upload, storage, metadata, analytics jobs, quality review, deliverable packaging, client approval, and download.
+    \item Business operations controls for staff review, overrides, SLA tracking, notifications, support history, finance reconciliation, and reporting.
+\end{enumerate}
+
+\section{Scope}
+
+\subsection*{In Scope}
+
+\begin{itemize}[leftmargin=*]
+    \item Public service request entry point and authenticated client portal.
+    \item Pilot onboarding, credential tracking, equipment profiles, service regions, availability, bids, and assignments.
+    \item Internal operations console for request review, assignment control, compliance exceptions, quality review, and support.
+    \item Core engine APIs and domain events for request, mission, quote, bid, assignment, analytics, billing, payout, and audit records.
+    \item Secure file upload, storage, metadata management, processing status, deliverable publication, and download access.
+    \item AI-assisted intake, matching, pricing, risk scoring, analytics, and report drafting with review and override controls.
+    \item Payment, invoicing, subscription, and payout event support sufficient for finance integration.
+    \item Notifications for request status, bid windows, assignments, deliverables, approvals, payment status, and exceptions.
+\end{itemize}
+
+\subsection*{Out of Scope for Initial Launch}
+
+\begin{itemize}[leftmargin=*]
+    \item Fully autonomous mission approval without operations review for configured risk categories.
+    \item Direct drone flight control or real-time aircraft command.
+    \item Custom analytics model training for every client vertical before standard service packages are validated.
+    \item Replacement of accounting, CRM, or enterprise resource planning systems; the platform should integrate with them through defined events or APIs.
+\end{itemize}
+
+\section{User Roles}
+
+\begin{longtable}{>{\bfseries}p{0.22\textwidth}p{0.68\textwidth}}
+\toprule
+Role & Primary responsibilities in the system \\
+\midrule
+Client user & Submit requests, provide site details, review quotes, approve work, upload supporting files, view mission status, download deliverables, and manage subscriptions. \\
+Pilot user & Maintain profile, credentials, equipment, availability, service regions, submit bids, accept assignments, update mission progress, upload captured data, and review payout status. \\
+Operations user & Review requests, manage exceptions, verify eligibility, approve assignments, monitor SLAs, coordinate support, review deliverables, and override system recommendations with reasons. \\
+Finance user & Review invoices, payments, refunds, credits, platform fees, pilot payouts, subscriptions, and revenue attribution. \\
+Administrator & Manage roles, configuration, service packages, pricing rules, regions, compliance rules, integrations, templates, and audit access. \\
+\bottomrule
+\end{longtable}
+
+\section{Core Engine Requirements}
+
+The core engine must be implemented as a production backend domain layer with explicit APIs, state transitions, rules, and events.
+
+\begin{enumerate}[leftmargin=*]
+    \item The system shall maintain canonical records for clients, pilots, service packages, requests, missions, sites, schedule windows, quotes, bids, assignments, deliverables, invoices, payouts, and subscriptions.
+    \item The system shall enforce a controlled mission lifecycle from draft request through intake review, quote, bid window, assignment, flight execution, data upload, analytics processing, quality review, client delivery, billing, payout, and closure.
+    \item The system shall validate pilot eligibility using certification, insurance, equipment, service region, availability, performance status, client restrictions, and compliance rules.
+    \item The system shall calculate base price guidance from service package, location, complexity, urgency, deliverables, travel burden, historical pricing, and configured margin rules.
+    \item The system shall support pilot bidding windows with start time, end time, eligible pilot list, bid status, bid amount, bid notes, and staff selection workflow.
+    \item The system shall separate hard eligibility filters from ranking scores so that AI or scoring failures do not bypass mandatory compliance rules.
+    \item The system shall emit auditable business events for every material change to request, quote, bid, assignment, mission status, deliverable, invoice, payout, subscription, and override record.
+    \item The system shall expose adapter boundaries for identity, payments, storage, notifications, weather, airspace, maps, AI providers, accounting, and CRM systems.
+    \item The system shall support idempotent processing for external callbacks, payment events, file processing jobs, notifications, and AI analysis results.
+    \item The system shall provide testable rule modules for state transitions, permissions, eligibility, pricing, bidding, assignment, billing, and deliverable publication.
+\end{enumerate}
+
+\section{AI Services Layer}
+
+AI capabilities should be delivered as reusable services connected to the core engine through stable contracts. AI outputs must include confidence, source inputs, timestamp, model or prompt version where applicable, and review status.
+
+\begin{longtable}{p{0.24\textwidth}p{0.36\textwidth}p{0.30\textwidth}}
+\toprule
+\textbf{AI capability} & \textbf{Primary function} & \textbf{Business value} \\
+\midrule
+Smart intake & Convert plain-language requests into structured job requirements. & Fewer incomplete requests and faster scoping. \\
+Service recommendation & Suggest packages, deliverables, and add-ons. & Higher conversion and more consistent offers. \\
+Pilot ranking & Rank eligible pilots by proximity, availability, equipment, performance, cost, and risk inputs. & Faster assignment and higher service quality. \\
+Pricing guidance & Recommend price corridors from complexity, urgency, demand, location, and history. & Better margin discipline and bid consistency. \\
+Risk and feasibility scoring & Surface weather, airspace, travel, permit, schedule, and site-access concerns. & Fewer failed jobs and earlier escalation. \\
+Automated analytics & Detect anomalies, changes, counts, measurements, or trends from captured imagery and sensor data. & Higher-value outputs and analytics revenue. \\
+Report generation & Draft client-ready summaries, findings, limitations, and recommended next actions. & Shorter turnaround with staff review. \\
+\bottomrule
+\end{longtable}
+
+\section{High-Level Business Requirements}
+
+\begin{enumerate}[leftmargin=*]
+    \item The system shall enable clients to submit service requests through the company website using a guided intake flow or free-text description.
+    \item The system shall convert submitted requests into structured mission details including site, objective, schedule window, deliverables, urgency, supporting files, and contact information.
+    \item The system shall allow operations users to review, edit, approve, reject, or request clarification before a request is released to pilots.
+    \item The system shall make eligible requests available to qualified contracted pilots during a configurable bidding window.
+    \item The system shall allow pilots to submit bids, availability notes, equipment notes, and operational constraints.
+    \item The system shall recommend pilot assignments while allowing authorized staff to approve, reject, or override recommendations with a recorded reason.
+    \item The system shall track mission status from assignment through data upload, analytics processing, quality review, client delivery, invoice, payout, and closure.
+    \item The system shall provide secure storage and controlled access for client files, mission imagery, analytics outputs, and final deliverables.
+    \item The system shall support recurring monitoring contracts with schedule, service package, billing cadence, and deliverable history.
+    \item The system shall provide reporting for request volume, conversion, bid participation, pilot utilization, SLA performance, revenue, subscriptions, and service quality.
+\end{enumerate}
+
+\section{Non-Functional Requirements}
+
+\begin{longtable}{>{\bfseries}p{0.24\textwidth}p{0.66\textwidth}}
+\toprule
+Category & Requirement \\
+\midrule
+Security & Role-based access control, MFA-ready authentication, encryption in transit and at rest, signed file URLs, least-privilege service access, and audit logging. \\
+Privacy & PII, client site data, drone imagery, credentials, and payment records must follow retention, access, deletion, and sharing policies. \\
+Reliability & Core mission, assignment, billing, and deliverable workflows must recover from transient third-party failures without duplicate business actions. \\
+Performance & Standard portal pages should respond within acceptable web application thresholds; large uploads and analytics jobs must be asynchronous with progress tracking. \\
+Scalability & The architecture must support regional expansion, increasing pilot counts, enterprise accounts, large imagery files, and multiple concurrent analytics jobs. \\
+AI governance & AI outputs must be reviewable, explainable at the business-input level, versioned where practical, and overridable by authorized staff. \\
+Observability & The system must expose metrics, logs, traces, job status, provider failure alerts, SLA alerts, and business event history. \\
+Maintainability & Domain rules must be covered by automated tests and separated from user interface and provider-specific code. \\
+\bottomrule
+\end{longtable}
+
+\section{Success Metrics}
+
+\begin{itemize}[leftmargin=*]
+    \item Request-to-qualified-intake time decreases versus manual handling.
+    \item Percentage of requests released with complete structured requirements increases.
+    \item Average assignment time decreases while pilot acceptance and completion quality remain stable or improve.
+    \item Quote accuracy, bid participation, and margin performance are measurable by service package and region.
+    \item Deliverable turnaround time decreases for standard analytics and reporting packages.
+    \item Recurring monitoring subscriptions and AI analytics attachment rates can be tracked by client segment.
+\end{itemize}
+
+\end{document}

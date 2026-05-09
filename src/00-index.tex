@@ -1,0 +1,87 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{xcolor}
+
+\definecolor{flyticsblue}{RGB}{0,51,102}
+
+\title{\textbf{Flytics Client Services Platform\\Source-of-Truth Index}}
+\author{Prepared for Flytics Client Services Business Unit}
+\date{May 2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{Purpose}
+
+This source set defines the business request, feasibility position, delivery workplan, revenue model, and implementation baseline for the Flytics AI-Enhanced Client Services Platform. Development teams should use these files as the controlling product and architecture input until replaced by approved product requirements, architecture decision records, or sprint-level specifications.
+
+\section{Document Set}
+
+\begin{longtable}{>{\bfseries}p{0.22\textwidth}p{0.68\textwidth}}
+\toprule
+File & Role in the source of truth \\
+\midrule
+System request & Defines the approved business problem, users, product scope, high-level requirements, and core engine responsibilities. \\
+Feasibility analysis & Assesses business, technical, operational, legal, schedule, and financial feasibility and identifies delivery conditions. \\
+Workplan & Converts the approved scope into delivery phases, workstreams, milestones, engineering ownership, and acceptance gates. \\
+Revenue projection & Defines planning revenue assumptions, scenarios, validation needs, and model boundaries. \\
+Index & Provides this navigation file and shared terminology for the document set. \\
+\bottomrule
+\end{longtable}
+
+\section{Canonical Product Definition}
+
+Flytics will build a secure marketplace and operations platform for drone-based client services. Clients request missions and analytics through the web portal, qualified contracted pilots bid on or receive assignments, internal operations teams govern delivery, and clients receive data products, reports, invoices, and service history through a controlled account experience.
+
+The platform includes an AI Services Layer, but the production system must not depend on AI as an uncontrolled decision maker. AI capabilities provide recommendations, extraction, ranking, summarization, and analysis support. Final operational controls, auditability, override paths, and deterministic business rules remain part of the core platform.
+
+\section{Canonical Core Engine Scope}
+
+The core engine is the shared backend domain layer used by the web portal, pilot portal, operations console, AI services, analytics pipeline, billing module, and integrations. It owns the following capabilities:
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Request and mission model:} canonical records for client request, mission, site, schedule window, service package, deliverables, urgency, attachments, and status.
+    \item \textbf{Eligibility and compliance:} pilot qualification checks, certification and insurance validity, equipment fit, location coverage, client restrictions, and job release rules.
+    \item \textbf{Pricing and bidding:} baseline price calculation, configurable price corridors, pilot bid intake, bid comparison, platform fee calculation, and approval workflow.
+    \item \textbf{Matching and assignment:} deterministic eligibility filtering plus ranked recommendations from proximity, availability, performance, equipment, cost, and risk inputs.
+    \item \textbf{Workflow orchestration:} state transitions from draft request through intake, quote, bidding, assignment, flight completion, analytics, client approval, invoicing, and closure.
+    \item \textbf{Analytics orchestration:} upload registration, file metadata, processing jobs, model outputs, quality review, report packaging, and deliverable publishing.
+    \item \textbf{Billing events:} invoice-ready events, payment status, pilot payout records, subscription events, refunds, credits, and revenue attribution.
+    \item \textbf{Audit and observability:} immutable business event log, user and system actions, AI recommendation inputs and outputs, override reasons, metrics, traces, and alerts.
+    \item \textbf{Integration contracts:} stable API boundaries for identity, payments, storage, weather, airspace, notifications, mapping, AI providers, and accounting systems.
+\end{enumerate}
+
+\section{Shared Delivery Principles}
+
+\begin{itemize}[leftmargin=*]
+    \item Build the marketplace workflow first, then layer AI recommendations onto observable and testable business processes.
+    \item Keep client, pilot, operations, finance, and support workflows separated by role-based access control.
+    \item Treat compliance, audit history, data privacy, and override capability as launch requirements, not later enhancements.
+    \item Use structured APIs and domain events for all cross-service communication that affects mission state, pricing, assignment, billing, or deliverables.
+    \item Validate revenue assumptions with real demand, pilot supply, pricing, and margin data before committing to scale targets.
+\end{itemize}
+
+\section{Initial Non-Functional Baseline}
+
+\begin{longtable}{>{\bfseries}p{0.28\textwidth}p{0.62\textwidth}}
+\toprule
+Category & Baseline expectation \\
+\midrule
+Security & Role-based access control, MFA-ready identity, encryption in transit and at rest, signed file access, audit logs, and least-privilege service access. \\
+Reliability & Core request, assignment, payment, and deliverable workflows must be recoverable after transient provider failures. \\
+Data governance & PII, client files, flight imagery, pilot credentials, and payment records must have defined retention, access, and deletion rules. \\
+AI governance & AI outputs must be traceable, reviewable, overridable, and prevented from executing irreversible business actions without configured approval. \\
+Scalability & Architecture must support regional growth, multiple client accounts, multiple pilots per region, large imagery uploads, and asynchronous analytics jobs. \\
+Maintainability & Core domain rules must be tested independently from user interfaces and third-party integrations. \\
+\bottomrule
+\end{longtable}
+
+\end{document}
